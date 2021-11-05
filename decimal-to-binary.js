@@ -2,20 +2,14 @@ const input = require('fs') // required to work with the filesystem
     .readFileSync(0) // read a buffer from stdin file descriptor
     .toString('utf8');
 
-function binary(decimal)
+
+function decimalToBinary(decimalInteger)
 {
-    let reversedBinaryNumber = ''
-    while(decimal !== 0)
+    if(decimalInteger >= 1)
     {
-        reversedBinaryNumber += (decimal % 2)
-        decimal = parseInt(decimal / 2)
+        return decimalToBinary(BigInt(decimalInteger)/2n) + (BigInt(decimalInteger) % 2n)
     }
-    let binaryNumber = ''
-    for(let i = reversedBinaryNumber.length-1; i >= 0; i--)
-    {
-        binaryNumber=binaryNumber + reversedBinaryNumber[i]
-    }
-    return binaryNumber
+    return ''
 }
 
-console.log(binary(parseInt(input)))
+console.log(decimalToBinary(input))
